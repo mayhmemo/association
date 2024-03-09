@@ -1,36 +1,55 @@
 puts "Destroying existing records..."
 User.destroy_all
-Debt.destroy_all
 Person.destroy_all
+Debt.destroy_all
 
-User.create email: 'admin@admin.com', password: '111111'
+# User.create email: 'admin@admin.com', password: '111111'
 
-puts "Usuário criado:"
-puts "login admin@admin.com"
-puts "111111"
+# puts "Usuário criado:"
+# puts "login admin@admin.com"
+# puts "111111"
 
-1000.times do |counter|
-  puts "Creating user #{counter}"
-  User.create email: Faker::Internet.email, password: '111111'
+# Seed Users
+5.times do
+  new_user = User.new(
+    email: Faker::Internet.email,
+    password: Faker::Internet.password
+  )
+
+  new_user.save
+
+  puts "Usuário criado:"
+  puts new_user.to_s
 end
 
-3000.times do |counter|
-  puts "Inserting Person #{counter}"
-
-  attrs = {
+# Seed data
+5.times do
+  new_person = Person.new(
     name: Faker::Name.name,
-    phone_number: Faker::PhoneNumber.phone_number,
     national_id: CPF.generate,
-    active: [true, false].sample,
-    user: User.order('random()').first
-  }
-  person = Person.create(attrs)
+    phone_number: Faker::PhoneNumber.phone_number,
+    active: Faker::Boolean.boolean,
+    user: User.order("RANDOM()").first,
+    created_at: Faker::Time.between(from: DateTime.now - 1, to: DateTime.now),
+    updated_at: Faker::Time.between(from: DateTime.now - 1, to: DateTime.now)
+  )
 
-  5.times do |debt_counter|
-    puts "Inserting Debt #{debt_counter}"
-    person.debts.create(
-      amount: Faker::Number.between(from: 1, to: 200),
-      observation: Faker::Lorem.paragraph
-    )
-  end
+  new_person.save
+
+  puts "Pessoa criada:"
+  puts new_person.to_s
+end
+
+# Seed Debts
+5.times do
+  new_debt = Debt.new(
+    person: Person.order("RANDOM()").first,
+    amount: Faker::Number.decimal(l_digits: 2),
+    observation: Faker::Lorem.sentence,
+    created_at: Faker::Time.between(from: DateTime.now - 1, to: DateTime.now),
+    updated_at: Faker::Time.between(from: DateTime.now - 1, to: DateTime.now)
+  )
+
+  puts "Débito created:"
+  puts new_debt.to_s
 end

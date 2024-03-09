@@ -5,4 +5,11 @@ class User < ApplicationRecord
          :recoverable, :rememberable, :validatable
 
   has_many :people, dependent: :nullify
+
+  def to_s
+    "
+    Email: #{email},
+    Password: #{password},
+    "
+  end
 end

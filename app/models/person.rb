@@ -22,6 +22,18 @@ class Person < ApplicationRecord
     total
   end
 
+  def to_s
+    "
+    Name: #{name},
+    National ID: #{national_id},
+    Phone Number: #{phone_number},
+    Active: #{active},
+    User: #{user_id},
+    Created At: #{created_at},
+    Updated At: #{updated_at}
+    "
+  end
+
   private
 
   def cpf_or_cnpj
