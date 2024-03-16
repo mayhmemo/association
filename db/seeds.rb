@@ -3,14 +3,14 @@ User.destroy_all
 Person.destroy_all
 Debt.destroy_all
 
-# User.create email: 'admin@admin.com', password: '111111'
+User.create email: 'admin@admin.com', password: '111111', password_confirmation: '111111'
 
 # puts "Usuário criado:"
 # puts "login admin@admin.com"
 # puts "111111"
 
 # Seed Users
-5.times do
+100.times do
   new_user = User.new(
     email: Faker::Internet.email,
     password: Faker::Internet.password
@@ -23,7 +23,7 @@ Debt.destroy_all
 end
 
 # Seed data
-5.times do
+100.times do
   new_person = Person.new(
     name: Faker::Name.name,
     national_id: CPF.generate,
@@ -41,7 +41,7 @@ end
 end
 
 # Seed Debts
-5.times do
+100.times do
   new_debt = Debt.new(
     person: Person.order("RANDOM()").first,
     amount: Faker::Number.decimal(l_digits: 2),
