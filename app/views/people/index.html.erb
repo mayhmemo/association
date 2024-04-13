@@ -28,6 +28,7 @@
         <th>Nome</th>
         <th>CPF/CNPJ</th>
         <th>Telefone</th>
+        <th>Balance</th>
         <th>Cadastrado em</th>
         <th>Cadastrado por</th>
         <th>Ativo</th>
@@ -40,6 +41,7 @@
           <td><%= person.name %></td>
           <td><%= person.national_id %></td>
           <td><%= person.phone_number %></td>
+          <td><%= person.balance %></td>
           <td><%=l person.created_at, format: :short %></td>
           <td><%= person.user.email %></td>
           <td class="text-center align-middle">

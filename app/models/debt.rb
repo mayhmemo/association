@@ -3,6 +3,8 @@ class Debt < ApplicationRecord
 
   validates :amount, presence: true
 
+  after_save :update_person_balance_cache
+
   def to_s
     "
     Person ID: #{person_id},
@@ -11,5 +13,11 @@ class Debt < ApplicationRecord
     Created At: #{created_at},
     Updated At: #{updated_at}
     "
+  end
+
+  private
+
+  def update_person_balance_cache
+    person.update_cached_balance
   end
 end
