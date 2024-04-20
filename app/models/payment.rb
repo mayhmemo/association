@@ -3,11 +3,22 @@ class Payment < ApplicationRecord
 
   validates :amount, presence: true
 
-  after_save :update_person_balance_cache
+  after_save :update_person_balance
+
+  def to_s
+    "
+    Person ID: #{person_id},
+    Amount: #{amount},
+    Paid At: #{paid_at},
+    Created At: #{created_at},
+    Updated At: #{updated_at}
+    "
+  end
 
   private
 
-  def update_person_balance_cache
-    person.update_cached_balance
+  def update_person_balance
+    current_balance = person.balance || 0
+    person.update(balance: current_balance + amount)
   end
 end

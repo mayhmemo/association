@@ -6,5 +6,8 @@ import * as bootstrap from "bootstrap"
 import { Application } from '@hotwired/stimulus'
 import { Autocomplete } from 'stimulus-autocomplete'
 
+import "Chart.bundle"
+import "chartkick"
+
 const application = Application.start()
 application.register('autocomplete', Autocomplete)

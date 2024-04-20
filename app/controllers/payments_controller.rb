@@ -1,5 +1,5 @@
 class PaymentsController < ApplicationController
-  before_action :set_payment, only: %i[ show edit update destroy ]
+  before_action :authenticate_user!
 
   # GET /payments or /payments.json
   def index
@@ -18,7 +18,7 @@ class PaymentsController < ApplicationController
 
     respond_to do |format|
       if @payment.save
-        format.html { redirect_to payment_url(@payment), notice: "Pagamento criado." }
+        format.html { redirect_to payments_url, notice: "Pagamento criado." }
         format.json { render :show, status: :created, location: @payment }
       else
         format.html { render :new, status: :unprocessable_entity }
@@ -38,10 +38,6 @@ class PaymentsController < ApplicationController
   end
 
   private
-    # Use callbacks to share common setup or constraints between actions.
-    def set_payment
-      @payment = Payment.find(params[:id])
-    end
 
     # Only allow a list of trusted parameters through.
     def payment_params

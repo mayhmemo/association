@@ -18,7 +18,7 @@ class DebtsController < ApplicationController
 
     respond_to do |format|
       if @debt.save
-        format.html { redirect_to debt_url(@debt), notice: "Débito criado." }
+        format.html { redirect_to debts_url, notice: "Débito criado." }
         format.json { render :show, status: :created, location: @debt }
       else
         format.html { render :new, status: :unprocessable_entity }
